@@ -1,3 +1,6 @@
+# FastAPI 프로젝트에서 설정(Configuration) 관련된 모든 정보를 중앙에서 관리하는 역할
+#  실무적으로 보면 .env 환경 변수 → Python 설정 객체로 매핑하는 핵심 파일
+
 import os
 from pydantic_settings import BaseSettings
 from dotenv import load_dotenv

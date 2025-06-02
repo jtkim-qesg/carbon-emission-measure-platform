@@ -1,3 +1,6 @@
+# 라우터만 정의하는 모듈, 여러 endpoint들을 모아 api_router에 등록
+# 즉, 엔드포인트 모듈들의 중앙 허브 역할
+
 from fastapi import APIRouter
 from app.api.endpoints import users
 
