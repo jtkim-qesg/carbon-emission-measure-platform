@@ -1,0 +1,19 @@
+version: "3.9"
+
+services:
+  app:
+    build:
+      context: ..
+      dockerfile: ${PWD}/docker/development.Dockerfile
+    container_name: carbon-dev
+    volumes:
+      - ../:/app
+    env_file:
+      - ../env/.env
+      - ../env/.env.development
+    ports:
+      - "${APP_PORT}:8000"
+    command: poetry run uvicorn app.main:app --host 0.0.0.0 --port 8000 --reload
+
+volumes:
+  carbon_dev_data: {}

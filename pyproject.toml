@@ -1,0 +1,29 @@
+[tool.poetry]
+name = "carbon-emission-measure-platform"
+version = "0.1.0"
+description = ""
+authors = ["Joontae Kim <jtkim@qesg.co.kr>"]
+readme = "README.md"
+packages = [{include = "carbon_emission_measure_platform"}]
+
+[tool.poetry.dependencies]
+python = "^3.11"
+fastapi = "^0.115.12"
+uvicorn = {extras = ["standard"], version = "^0.34.3"}
+sqlalchemy = "^2.0.41"
+databases = "^0.9.0"
+aiomysql = "^0.2.0"
+pymysql = "^1.1.1"
+alembic = "^1.16.1"
+python-dotenv = "^1.1.0"
+pydantic-settings = "^2.9.1"
+pydantic = {extras = ["email"], version = "^2.11.5"}
+
+
+[tool.poetry.group.dev.dependencies]
+ruff = "^0.11.12"
+mypy = "^1.16.0"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
