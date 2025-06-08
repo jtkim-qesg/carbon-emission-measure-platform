@@ -6,8 +6,9 @@ from sqlalchemy import engine_from_config, pool
 from alembic import context
 
 from app.db.base import Base  # Base.metadata
-# from app.models import user  # noqa
 
+target_metadata = Base.metadata
+# print(Base.metadata.tables.keys())
 
 # ----------------------------
 # Load Env
@@ -30,8 +31,6 @@ config = context.config
 
 if config.config_file_name is not None:
     fileConfig(config.config_file_name)
-
-target_metadata = Base.metadata
 
 
 # ----------------------------
