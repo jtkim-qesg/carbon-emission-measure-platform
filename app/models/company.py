@@ -32,6 +32,7 @@ class User(Base, BaseMixin):
     company_id = Column(Integer, ForeignKey("company.id", ondelete="RESTRICT"), nullable=False)
     username = Column(String(255), nullable=False)
     email = Column(String(255), nullable=False, unique=True)
+    hashed_password = Column(String(255), nullable=False)
     role = Column(SQLEnum(UserRoleEnum), nullable=False, default=UserRoleEnum.GENERAL)
     mfa_token = Column(String(255), nullable=True)
     is_verified_mfa = Column(Boolean, default=False)
