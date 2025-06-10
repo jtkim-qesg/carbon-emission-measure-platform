@@ -4,7 +4,7 @@ from sqlalchemy.future import select
 from fastapi import HTTPException, status
 
 from app.models.user import User
-from app.schemas.User import UserCreate
+from app.schemas.user import UserCreate
 from app.core.security import get_password_hash
 
 async def get_users(db: AsyncSession):

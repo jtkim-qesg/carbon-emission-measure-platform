@@ -1,7 +1,7 @@
 from fastapi import APIRouter, Depends
 from sqlalchemy.ext.asyncio import AsyncSession
 from app.db.session import get_db
-from app.schemas.User import UserCreate, UserRead
+from app.schemas.user import UserCreate, UserRead
 from app.handlers import user as handlers_user
 from typing import List
 
