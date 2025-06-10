@@ -2,7 +2,7 @@
 # 즉, FastAPI 서버 실행용 엔트리포인트
 
 from fastapi import FastAPI
-from app.bootstrap.init_super_user import init_super_user
+from app.bootstrap.init_seed_user_company import init_seed_user_company
 from app.api.api import api_router
 
 app = FastAPI(
@@ -11,7 +11,7 @@ app = FastAPI(
 )
 
 async def startup_event():
-    await init_super_user()
+    await init_seed_user_company()
 
 # 라우터 등록
 app.include_router(api_router)
