@@ -1,32 +1,26 @@
 from pydantic import BaseModel, ConfigDict, EmailStr
+from typing import Optional, List
 from enum import Enum
+from datetime import datetime
 from app.models.enums import UserRoleEnum
 
 # 공통 속성
 class UserBase(BaseModel):
+    username: str
     email: EmailStr
     password: str
-    username: str
-    role: UserRoleEnum = UserRoleEnum.GENERAL
     company_id: int
+    role: UserRoleEnum
 
 
 # 생성 요청 시 사용
-class UserCreate(BaseModel):
-    email: EmailStr
-    password: str
-    username: str
-    role: UserRoleEnum = UserRoleEnum.GENERAL
-    company_id: int
-
+class UserCreate(UserBase):
+    pass
 
 # 응답 시 사용
 class UserRead(UserBase):
     id: int
-    email: EmailStr
-    username: str
-    role: UserRoleEnum
-    company_id: int
+    last_login_at: Optional[datetime]
 
     class Config:
         model_config = ConfigDict(from_attributes=True)

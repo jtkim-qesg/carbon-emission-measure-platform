@@ -39,7 +39,7 @@ async def init_seed_user_company():
             super_user = User(
                 email="super@qesg.co.kr",
                 username="superadmin",
-                hashed_password=get_password_hash("supersecure123"),
+                password=get_password_hash("supersecure123"),
                 role=UserRoleEnum.SUPER,
                 company_id=1,  # 존재하는 company_id가 있어야 합니다!
             )
