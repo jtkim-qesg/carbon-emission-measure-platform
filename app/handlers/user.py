@@ -26,7 +26,7 @@ async def create_user(db: AsyncSession, user_create: UserCreate) -> User:
     user = User(
         email=user_create.email,
         username=user_create.username,
-        hashed_password=hashed_pw,
+        password=hashed_pw,
         role=user_create.role,
         company_id=user_create.company_id,
     )
