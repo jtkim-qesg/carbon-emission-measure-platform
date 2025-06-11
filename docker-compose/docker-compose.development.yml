@@ -1,5 +1,3 @@
-version: "3.9"
-
 services:
   app:
     build:
@@ -13,7 +11,23 @@ services:
       - ../env/.env.development
     ports:
       - "${APP_PORT}:8000"
+    depends_on:
+      - db
     command: poetry run uvicorn app.main:app --host 0.0.0.0 --port 8000 --reload
+
+  db:
+    image: mysql:8.0
+    container_name: carbon-dev-mysql
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: 123456
+      MYSQL_DATABASE: carbon
+      MYSQL_USER: carbon-root
+      MYSQL_PASSWORD: carbon123!
+    ports:
+      - "33061:3306"
+    volumes:
+      - carbon_dev_data:/var/lib/mysql
 
 volumes:
   carbon_dev_data: {}

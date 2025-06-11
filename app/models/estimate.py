@@ -11,8 +11,7 @@ class EstimateInfo(Base, BaseMixin):
     site_id = Column(Integer, ForeignKey("site.id", ondelete="RESTRICT"), nullable=False)
     requested_by_user_id = Column(Integer, ForeignKey("user.id", ondelete="RESTRICT"), nullable=False)
 
-    cycles = relationship("EstimateCycle", back_populates="estimate_info", cascade="all, delete-orphan")
-    results = relationship("EstimateResult", back_populates="estimate_info", cascade="all, delete-orphan")
+    site = relationship("Site", back_populates="estimate_info")
 
 class EstimateCycle(Base, BaseMixin, SoftDeleteMixin):
     __tablename__ = "estimate_cycle"
@@ -20,9 +19,8 @@ class EstimateCycle(Base, BaseMixin, SoftDeleteMixin):
     estimate_info_id = Column(Integer, ForeignKey("estimate_info.id", ondelete="RESTRICT"), nullable=False)
     cycle_status = Column(SQLEnum(CycleStatusEnum), nullable=False)
 
-    estimate_info = relationship("EstimateInfo", back_populates="cycles")
-    attachments = relationship("EstimateAttachment", back_populates="cycle", cascade="all, delete-orphan")
-    feedbacks = relationship("EstimateFeedback", back_populates="cycle", cascade="all, delete-orphan")
+    feedback = relationship("EstimateFeedback", backref="EstimateCycle")
+    attachments = relationship("EstimateAttachment", backref="EstimateCycle")
 
 class EstimateFeedback(Base, BaseMixin):
     __tablename__ = "estimate_feedback"
@@ -33,7 +31,6 @@ class EstimateFeedback(Base, BaseMixin):
     is_send_mail = Column(Boolean, default=False)
     sent_mail_at = Column(DateTime)
 
-    cycle = relationship("EstimateCycle", back_populates="feedbacks")
 
 class EstimateResult(Base, BaseMixin):
     __tablename__ = "estimate_result"
@@ -41,7 +38,6 @@ class EstimateResult(Base, BaseMixin):
     estimate_info_id = Column(Integer, ForeignKey("estimate_info.id", ondelete="RESTRICT"), nullable=False)
     comment = Column(String(500))
 
-    estimate_info = relationship("EstimateInfo", back_populates="results")
 
 class EstimateInfoShare(Base, BaseMixin):
     __tablename__ = "estimate_info_share"

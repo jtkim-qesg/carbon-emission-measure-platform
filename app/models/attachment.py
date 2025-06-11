@@ -11,9 +11,8 @@ class EstimateAttachment(Base, BaseMixin):
     cycle_id = Column(Integer, ForeignKey("estimate_cycle.id", ondelete="RESTRICT"), nullable=False)
     type = Column(SQLEnum(AttachmentTypeEnum), nullable=False)
 
-    cycle = relationship("EstimateCycle", back_populates="attachments")
-    info = relationship("EstimateAttachmentInfo", uselist=False, back_populates="attachment", cascade="all, delete-orphan")
-    reviews = relationship("EstimateAttachmentReview", back_populates="attachment", cascade="all, delete-orphan")
+    review = relationship("EstimateAttachmentReview", backref="EstimateAttachment")
+    info = relationship("EstimateAttachmentInfo", backref="EstimateAttachment")
 
 class EstimateAttachmentInfo(Base, BaseMixin):
     __tablename__ = "estimate_attachment_info"
@@ -26,8 +25,6 @@ class EstimateAttachmentInfo(Base, BaseMixin):
     version = Column(Integer, default=1)
     is_latest = Column(String(5), default='True')
 
-    attachment = relationship("EstimateAttachment", back_populates="info")
-
 class EstimateAttachmentReview(Base, BaseMixin):
     __tablename__ = "estimate_attachment_review"
     id = Column(Integer, primary_key=True)
@@ -36,4 +33,3 @@ class EstimateAttachmentReview(Base, BaseMixin):
     status = Column(SQLEnum(ReviewStatusEnum), nullable=False)
     comment = Column(String(500))
 
-    attachment = relationship("EstimateAttachment", back_populates="reviews")
