@@ -5,7 +5,7 @@ from sqlalchemy import and_
 
 from fastapi import HTTPException, status
 
-from app.models.estimate import EstimateInfo
+# from app.models.estimate import EstimateInfo
 from app.models.project_code import ProjectCode
 from app.models.enums import ProjectCodeStatusEnum
 from app.schemas.ProjectCode import (
@@ -123,7 +123,6 @@ async def delete_project_code(
         db: AsyncSession,
         project_code_id: int
 ) -> ProjectCode:
-    print("delete_project_code ~ ")
     _deleting_pc = await db.execute(
         select(ProjectCode)
         .where(ProjectCode.id == project_code_id)
@@ -139,7 +138,6 @@ async def delete_project_code(
     if _deleting_pc.status_code == ProjectCodeStatusEnum.STARTED:
         raise HTTPException(status_code=status.HTTP_409_CONFLICT, detail="이미 시작한 프로젝트 코드 입니다.")
 
-    print(" ~ _deleting_pc.estimates => ", _deleting_pc.estimates)
     if _deleting_pc.estimates:
         raise HTTPException(status_code=status.HTTP_409_CONFLICT, detail="프로젝트 코드에 참여한 기업 및 사업장이 있습니다.")
     

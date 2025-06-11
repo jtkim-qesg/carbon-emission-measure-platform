@@ -33,8 +33,11 @@ class VendorCode(Base, BaseMixin):
     project_code_id = Column(Integer, ForeignKey("project_code.id", ondelete="RESTRICT"), nullable=False)
     vendor_code = Column(String(255), nullable=False)
     company_id = Column(Integer, ForeignKey("company.id", ondelete="RESTRICT"), nullable=False)
-    used = Column(Boolean, default=True)
+    used = Column(Boolean, default=False)
     used_at = Column(DateTime(timezone=True), nullable=True)
+
+    project_code = relationship("ProjectCode", backref="VendorCode")
+    company = relationship("Company", backref="VendorCode")
 
 class ProjectCodeClient(Base, BaseMixin):
     __tablename__ = "project_code_client"

@@ -45,7 +45,7 @@ async def create_project_code_by_admin(
     )
 
 @router.patch("/{project_code_id}", response_model=ProjectCodeRead)
-async def create_project_code_by_admin(
+async def update_project_code_by_admin(
     project_code_id: int,
     project_code: ProjectCodeUpdate,
     db: AsyncSession = Depends(get_db)
