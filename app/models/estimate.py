@@ -20,7 +20,7 @@ class EstimateCycle(Base, BaseMixin, SoftDeleteMixin):
     cycle_status = Column(SQLEnum(CycleStatusEnum), nullable=False)
 
     feedback = relationship("EstimateFeedback", backref="EstimateCycle")
-    attachments = relationship("EstimateAttachment", backref="EstimateCycle")
+    # attachments = relationship("EstimateAttachment", backref="EstimateCycle")
 
 class EstimateFeedback(Base, BaseMixin):
     __tablename__ = "estimate_feedback"
