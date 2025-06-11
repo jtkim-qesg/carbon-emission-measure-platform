@@ -1,9 +1,9 @@
-from typing import Optional
+from typing import Optional, List
 from pydantic import BaseModel, ConfigDict
 from datetime import datetime
 
 from app.models.enums import ProjectCodeStatusEnum
-
+from app.schemas.EstimateInfo import ReadEstimatesInfo
 
 # 공통 속성
 class ProjectCodeBase(BaseModel):
@@ -25,14 +25,19 @@ class ProjectCodeBase(BaseModel):
 class ProjectCodeCreate(ProjectCodeBase):
     pass
 
+class ProjectCodeCreatedRead(ProjectCodeCreate):
+    id: int
+
 # 응답 시 사용
 class ProjectCodeRead(ProjectCodeBase):
     id: int
+    estimates: List[ReadEstimatesInfo] = []
 
 # 수정 시 사용
 class ProjectCodeUpdate(ProjectCodeBase):
     id: int
+    estimates: List[ReadEstimatesInfo] = []
 
-# 삭제 시 사용
+# # 삭제 시 사용
 class ProjectCodeDelete(BaseModel):
-    id: int
+    pass

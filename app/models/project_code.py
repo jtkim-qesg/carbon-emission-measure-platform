@@ -25,6 +25,7 @@ class ProjectCode(Base, BaseMixin):
     memo = Column(String(750), nullable=True)
 
     client = relationship("ProjectCodeClient", backref="ProjectCode")
+    estimates = relationship("EstimateInfo", backref="ProjectCode")
 
 class VendorCode(Base, BaseMixin):
     __tablename__ = "vendor_code"
