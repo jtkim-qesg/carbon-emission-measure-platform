@@ -8,11 +8,11 @@ from app.schemas.Company import CompanyRead
 
 # 공통 속성
 class VendorCodeBase(BaseModel):
-	project_code_id: Optional[int]
+	project_code_id: Optional[int] = None
 	vendor_code: str
-	company_id: Optional[int]
+	company_id: Optional[int] = None
 	used: bool = False
-	used_at = Optional[datetime]	
+	used_at: Optional[datetime] = None
 	
 	class Config:
 		model_config = ConfigDict(from_attributes=True)
