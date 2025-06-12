@@ -9,8 +9,9 @@ app = FastAPI(
     title="Carbon Emission Measure Platform",
     version="1.0.0"
 )
-
-async def startup_event():
+ 
+@app.on_event("startup")
+async def startup_event(): 
     await init_seed_user_company()
 
 # 라우터 등록

@@ -3,12 +3,13 @@ from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
 from typing import Optional
 
+from app.db.session import get_db
+from app.decorator.user import require_roles
 from app.schemas.user import UserCreate, UserRead
+from app.dependencies.auth import get_current_user
+from app.handlers.user import create_user
 from app.models.user import User
 from app.models.enums import UserRoleEnum
-from app.dependencies.auth import get_current_user
-from app.db.session import get_db
-from app.handlers.user import create_user
 
 router = APIRouter()
 
@@ -17,11 +18,8 @@ async def read_user_by_admin(
     user_id: Optional[int] = Query(None),
     company_id: Optional[int] = Query(None),
     db: AsyncSession = Depends(get_db),
-    current_user: User = Depends(get_current_user),
+    current_user: User = require_roles([UserRoleEnum.SUPER])
 ):
-    if current_user.role != UserRoleEnum.SUPER:
-        raise HTTPException(status_code=403, detail="SUPER 권한이 필요합니다.")
-
     user_q = select(User)
 
     if user_id:

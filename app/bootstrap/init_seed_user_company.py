@@ -12,14 +12,15 @@ async def init_seed_user_company():
     async with AsyncSessionLocal() as session:
         seed_company = await session.execute(
             select(Company).where(and_(
-                company_name = "(주)퀀티파이드이에스지",
-                company_code = "349-86-01679"
+                Company.company_name == "(주)퀀티파이드이에스지",
+                Company.company_code == "349-86-01679"
             ))
         )
         existing_company = seed_company.scalar_one_or_none()
         if existing_company:
             print("✅ 씨드 컴퍼니가 이미 존재합니다.")
         else:
+            print("✅ 씨드 컴퍼니를 생성합니다.")
             seed_company = Company(
                 company_name="(주)퀀티파이드이에스지",
                 company_code="349-86-01679"
@@ -36,10 +37,11 @@ async def init_seed_user_company():
         if existing_user:
             print("✅ SUPER 유저가 이미 존재합니다.")
         else:
+            print("✅ SUPER 유저를 생성합니다.")
             super_user = User(
                 email="super@qesg.co.kr",
                 username="superadmin",
-                hashed_password=get_password_hash("supersecure123"),
+                password=get_password_hash("supersecure123"),
                 role=UserRoleEnum.SUPER,
                 company_id=1,  # 존재하는 company_id가 있어야 합니다!
             )

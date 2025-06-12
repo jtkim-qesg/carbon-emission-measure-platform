@@ -9,6 +9,7 @@ class EstimateInfo(Base, BaseMixin):
     __tablename__ = "estimate_info"
     id = Column(Integer, primary_key=True)
     site_id = Column(Integer, ForeignKey("site.id", ondelete="RESTRICT"), nullable=False)
+    project_code_id = Column(Integer, ForeignKey("project_code.id", ondelete="RESTRICT"), nullable=False)
     requested_by_user_id = Column(Integer, ForeignKey("user.id", ondelete="RESTRICT"), nullable=False)
 
     site = relationship("Site", back_populates="estimate_info")
@@ -20,7 +21,7 @@ class EstimateCycle(Base, BaseMixin, SoftDeleteMixin):
     cycle_status = Column(SQLEnum(CycleStatusEnum), nullable=False)
 
     feedback = relationship("EstimateFeedback", backref="EstimateCycle")
-    attachments = relationship("EstimateAttachment", backref="EstimateCycle")
+    # attachments = relationship("EstimateAttachment", backref="EstimateCycle")
 
 class EstimateFeedback(Base, BaseMixin):
     __tablename__ = "estimate_feedback"
