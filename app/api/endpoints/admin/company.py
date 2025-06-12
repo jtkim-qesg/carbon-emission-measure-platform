@@ -3,16 +3,20 @@ from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
 from typing import Optional
 
-from app.schemas.Company import CompanyCreate, CompanyRead
-from app.models.company import Company
-from app.models.enums import UserRoleEnum
 from app.dependencies.auth import get_current_user
 from app.db.session import get_db
+
+from app.models.company import Company
+from app.models.enums import UserRoleEnum
+from app.schemas.Company import (
+    CreateCompany, ReadCompany
+)
+
 # from app.handlers.user import create_user
 
 router = APIRouter()
 
-@router.get("/", response_model=list[CompanyRead])
+@router.get("/", response_model=list[ReadCompany])
 async def read_user_by_admin(
     company_id: Optional[int] = Query(None),
     db: AsyncSession = Depends(get_db)
@@ -27,7 +31,7 @@ async def read_user_by_admin(
     return company_q
 
 
-# @router.post("/", response_model=CompanyRead)
+# @router.post("/", response_model=ReadCompany)
 # async def create_user_by_admin(
 #     user_in: UserCreate,
 #     db: AsyncSession = Depends(get_db),
