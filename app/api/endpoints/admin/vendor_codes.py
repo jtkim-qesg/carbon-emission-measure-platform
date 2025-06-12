@@ -8,7 +8,7 @@ from app.db.session import get_db
 from app.models.enums import UserRoleEnum
 from app.models.user import User
 from app.schemas.VendorCode import (
-	VendorCodeBase,
+	# VendorCodeBase,
 	VendorCodeCreate,
 	VendorCodeCreatedRead,
 	VendorCodeRead,
