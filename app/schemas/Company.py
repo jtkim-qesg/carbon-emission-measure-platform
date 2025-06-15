@@ -1,7 +1,7 @@
 from typing import List
 from enum import Enum
 from pydantic import BaseModel, ConfigDict
-from app.schemas.Site import (
+from app.schemas.Sites import (
     # ReadSite,
     ReadSiteWithEstimate
 )

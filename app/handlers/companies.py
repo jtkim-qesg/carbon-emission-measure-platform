@@ -5,17 +5,16 @@ from sqlalchemy import and_
 
 from fastapi import HTTPException, status
 
-from app.models.company import Company, Site
-from app.models.estimate import EstimateInfo
+from app.models.company import Company
+# from app.models.estimate import EstimateInfo
 from app.schemas.Company import (
     CreateCompany,
-    UpdateCompany,
-    ReadCompanyWithSites
+    UpdateCompany
 )
 
 async def create_company(
-        db: AsyncSession,
-        _creating_company: CreateCompany
+	db: AsyncSession,
+	_creating_company: CreateCompany
 ) -> Company:
     existed_company = await db.execute(
         select(Company)
@@ -45,7 +44,6 @@ async def create_company(
 async def get_company(db: AsyncSession, company_id, company_name, company_code) -> Company:
     # if company_id == None and company_name == None and company_code == None:
     #     raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail="잘못된 요청입니다.")
-    
     _Company_q = select(Company)
     if company_id:
         _Company_q = _Company_q.where(Company.id == company_id)

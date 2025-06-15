@@ -8,11 +8,11 @@ from .enums import CycleStatusEnum
 class EstimateInfo(Base, BaseMixin):
     __tablename__ = "estimate_info"
     id = Column(Integer, primary_key=True)
-    site_id = Column(Integer, ForeignKey("site.id", ondelete="RESTRICT"), nullable=False)
+    site_id = Column(Integer, ForeignKey("sites.id", ondelete="RESTRICT"), nullable=False)
     project_code_id = Column(Integer, ForeignKey("project_code.id", ondelete="RESTRICT"), nullable=False)
     requested_by_user_id = Column(Integer, ForeignKey("user.id", ondelete="RESTRICT"), nullable=False)
 
-    site = relationship("Site", back_populates="estimate_info")
+    site = relationship("Sites", back_populates="estimate_info")
 
 class EstimateCycle(Base, BaseMixin, SoftDeleteMixin):
     __tablename__ = "estimate_cycle"
