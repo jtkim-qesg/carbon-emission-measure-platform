@@ -46,7 +46,7 @@ async def create_vendor_code_by_admin(
 	return await create_vendor_code(db, vendor_code)
 
 
-@router.patch("/", response_model=VendorCodeRead)
+@router.patch("/{vendor_code_id}", response_model=VendorCodeRead)
 async def update_vender_code_by_admin(
     vendor_code_id: int,
     vendor_code: VendorCodeUpdate,
@@ -60,7 +60,7 @@ async def update_vender_code_by_admin(
     )
 
 
-@router.delete("/", response_model=VendorCodeDelete)
+@router.delete("/{vendor_code_id}", response_model=VendorCodeDelete)
 async def delete_vendor_code_by_admin(
 	vendor_code_id: int,
     db: AsyncSession = Depends(get_db),
