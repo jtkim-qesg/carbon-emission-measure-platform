@@ -37,7 +37,7 @@ async def read_user_by_admin(
 async def create_user_by_admin(
     user_in: UserCreate,
     db: AsyncSession = Depends(get_db),
-    current_user: User = Depends(get_current_user),
+    current_user: User = require_roles([UserRoleEnum.SUPER])
 ):
     # 관리자 권한 체크
     if current_user.role != UserRoleEnum.SUPER:
