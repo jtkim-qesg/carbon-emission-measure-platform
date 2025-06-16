@@ -42,8 +42,6 @@ async def create_company(
 
 
 async def get_company(db: AsyncSession, company_id, company_name, company_code) -> Company:
-    # if company_id == None and company_name == None and company_code == None:
-    #     raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail="잘못된 요청입니다.")
     _Company_q = select(Company)
     if company_id:
         _Company_q = _Company_q.where(Company.id == company_id)

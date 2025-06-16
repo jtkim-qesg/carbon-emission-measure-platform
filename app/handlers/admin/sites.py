@@ -58,6 +58,7 @@ async def read_sites(
 		_Sites_q = _Sites_q.where(Sites.company_id == _Sites_q.company_id)
 	
 	_Sites = await db.execute(_Sites_q)
+	_Sites = _Sites.scalar().all()
 	if not _Sites:
 		raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="존재하지 않는 기업입니다.")
 	return _Sites
