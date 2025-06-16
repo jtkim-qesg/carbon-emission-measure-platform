@@ -1,7 +1,6 @@
-from fastapi import APIRouter, Depends, HTTPException, Query, status
-from sqlalchemy import select
-from sqlalchemy.ext.asyncio import AsyncSession
 from typing import Optional
+from fastapi import APIRouter, Depends, Query
+from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.decorator.user import require_roles
 from app.models.user import User
@@ -26,12 +25,12 @@ router = APIRouter()
 
 @router.get("/", response_model=list[ProjectCodeRead])
 async def read_project_code_by_admin(
-    id: Optional[int] = Query(None),
+    project_id: Optional[int] = Query(None),
     project_code: Optional[str] = Query(None),
     db: AsyncSession = Depends(get_db),
     current_user: User = require_roles([UserRoleEnum.SUPER])
 ):
-    return await get_project_codes(db, id, project_code)
+    return await get_project_codes(db, project_id, project_code)
 
 
 @router.post("/", response_model=ProjectCodeCreatedRead)

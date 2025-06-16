@@ -14,14 +14,14 @@ class Company(Base, BaseMixin):
     company_code = Column(String(255), nullable=False)
 
     users = relationship("User", back_populates="company", cascade="all, delete-orphan")
-    sites = relationship("Site", back_populates="company", cascade="all, delete-orphan")
+    sites = relationship("Sites", back_populates="company", cascade="all, delete-orphan")
 
-class Site(Base, BaseMixin):
-    __tablename__ = "site"
+class Sites(Base, BaseMixin):
+    __tablename__ = "sites"
     id = Column(Integer, primary_key=True)
     company_id = Column(Integer, ForeignKey("company.id", ondelete="RESTRICT"), nullable=False)
-    name = Column(String(255), nullable=False)
-    location = Column(String(255), nullable=True)
+    site_name = Column(String(255), nullable=False)
+    site_location = Column(String(255), nullable=True)
 
     company = relationship("Company", back_populates="sites")
     estimate_info = relationship("EstimateInfo", back_populates="site", cascade="all, delete-orphan")

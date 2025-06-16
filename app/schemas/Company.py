@@ -1,25 +1,32 @@
-# from pydantic import BaseModelfrom pydantic import BaseModel, ConfigDict, EmailStr
+from typing import List
 from enum import Enum
 from pydantic import BaseModel, ConfigDict
-from app.models.enums import UserRoleEnum
+from app.schemas.Sites import (
+    # ReadSite,
+    ReadSiteWithEstimate
+)
 
 # 공통 속성
 class CompanyBase(BaseModel):
     company_name: str
     company_code: str
+    class Config:
+        model_config = ConfigDict(from_attributes=True)
 
 
 # 생성 요청 시 사용
-class CompanyCreate(BaseModel):
-    company_name: str
-    company_code: str
+class CreateCompany(CompanyBase):
+    pass
 
 
 # 응답 시 사용
-class CompanyRead(CompanyBase):
+class ReadCompany(CompanyBase):
     id: int
-    company_name: str
-    company_code: str
 
-    class Config:
-        model_config = ConfigDict(from_attributes=True)
+class ReadCompanyWithSites(ReadCompany):
+    sites: List[ReadSiteWithEstimate] = []
+
+class UpdateCompany(CompanyBase):
+    id: int
+
+    

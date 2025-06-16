@@ -4,7 +4,7 @@ from datetime import datetime
 
 # from app.models.enums import ProjectCodeStatusEnum
 from app.schemas.ProjectCode import ProjectCodeCreatedRead
-from app.schemas.Company import CompanyRead
+from app.schemas.Company import ReadCompany
 
 # 공통 속성
 class VendorCodeBase(BaseModel):
@@ -27,13 +27,13 @@ class VendorCodeCreatedRead(VendorCodeCreate):
 # 응답 시 사용
 class VendorCodeRead(VendorCodeBase):
     id: int
-    company: CompanyRead
+    company: ReadCompany
     project_code: ProjectCodeCreatedRead
 
 # 수정 시 사용
 class VendorCodeUpdate(VendorCodeBase):
     id: int
-    company: CompanyRead
+    company: ReadCompany
     project_code: ProjectCodeCreatedRead
 
 # # 삭제 시 사용
